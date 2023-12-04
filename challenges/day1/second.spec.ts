@@ -1,18 +1,6 @@
 import { readFile } from "fs/promises";
 import { join } from "path";
-import { expect, it } from "vitest";
-
-const numberStrings = [
-  "one",
-  "two",
-  "three",
-  "four",
-  "five",
-  "six",
-  "seven",
-  "eight",
-  "nine",
-] as const;
+import { it } from "vitest";
 
 const numberTree = {
   "1": 1,
