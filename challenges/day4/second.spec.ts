@@ -2,11 +2,7 @@ import { readFile } from "fs/promises";
 import { join } from "path";
 import { it } from "vitest";
 
-const getNumberOfWinsForCard = (
-  card: string
-): { cardNumber: number; wins: number } => {
-  const cardNumber = Number.parseInt(card.split(":")[0].split(" ")[1]);
-
+const getNumberOfWinsForCard = (card: string): number => {
   const [winningNumbersRaw, pickedNumbersRaw] = card.split(":")[1].split("|");
   const winningNumbers = winningNumbersRaw
     .trim()
@@ -29,7 +25,7 @@ const getNumberOfWinsForCard = (
       numberOfWins += 1;
     }
   }
-  return { cardNumber, wins: numberOfWins };
+  return numberOfWins;
 };
 
 it("is the solution to day 4 challenge 2", async () => {
@@ -37,14 +33,11 @@ it("is the solution to day 4 challenge 2", async () => {
   const cards = input.split("\n").map((card) => card.trim());
 
   const copies: number[] = new Array(cards.length).fill(1);
-  for (const card of cards) {
-    const { cardNumber, wins } = getNumberOfWinsForCard(card);
-    for (
-      let i = cardNumber;
-      i < Math.min(cardNumber + wins, copies.length);
-      i++
-    ) {
-      copies[i] = copies[i] + Math.max(copies[cardNumber - 1], 1);
+  let j = 0;
+  for (let i = 0; i < cards.length; i++) {
+    const wins = getNumberOfWinsForCard(cards[i]);
+    for (let j = i + 1; j < Math.min(i + 1 + wins, copies.length); j++) {
+      copies[j] = copies[j] + Math.max(copies[i], 1);
     }
   }
 
