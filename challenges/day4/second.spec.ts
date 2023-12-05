@@ -33,7 +33,7 @@ const getNumberOfWinsForCard = (
 };
 
 it("is the solution to day 4 challenge 2", async () => {
-  const input = await readFile(join(__dirname, "sample.txt"), "utf-8");
+  const input = await readFile(join(__dirname, "input.txt"), "utf-8");
   const cards = input.split("\n").map((card) => card.trim());
 
   const copies: number[] = new Array(cards.length).fill(1);
@@ -46,7 +46,6 @@ it("is the solution to day 4 challenge 2", async () => {
     ) {
       copies[i] = copies[i] + Math.max(copies[cardNumber - 1], 1);
     }
-    console.log(cardNumber, wins, copies);
   }
 
   const sum = copies.reduce((previous, current) => previous + current, 0);
