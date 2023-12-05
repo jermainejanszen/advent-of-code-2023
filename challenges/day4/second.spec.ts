@@ -15,13 +15,9 @@ const getNumberOfWinsForCard = (card: string): number => {
     .map((value) => Number.parseInt(value.trim()))
     .filter((value) => !Number.isNaN(value));
 
-  let firstWin: number | undefined = undefined;
   let numberOfWins = 0;
   for (const pickedNumber of pickedNumbers) {
     if (winningNumbers.includes(pickedNumber)) {
-      if (firstWin === undefined) {
-        firstWin = pickedNumber;
-      }
       numberOfWins += 1;
     }
   }
