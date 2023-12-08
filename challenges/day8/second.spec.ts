@@ -11,7 +11,6 @@ const generateMap = (lines: string[]): Record<string, string[]> => {
       .replace("(", "")
       .replace(")", "")
       .split(", ");
-    console.log(map);
   }
   return map;
 };
@@ -19,7 +18,7 @@ const generateMap = (lines: string[]): Record<string, string[]> => {
 const getStartNodes = (lines: string[]) => {
   return lines
     .map((line) => line.split(" = ")[0])
-    .filter((node) => /.*A$/.test(node));
+    .filter((node) => /^.*A$/.test(node));
 };
 
 const isFinished = (nodes: string[]) => {
@@ -52,9 +51,8 @@ it("is the solution to day 8 challenge 2", async () => {
   const lines = input.split("\n").map((line) => line.trim());
 
   console.log("Starting");
-  const instructions = lines[0];
+  const instructions = lines[0].trimEnd();
   const map = generateMap(lines);
-  console.log("Generated map");
 
   let sum = 0;
   const starts = getStartNodes(lines);
@@ -62,7 +60,6 @@ it("is the solution to day 8 challenge 2", async () => {
   while (true) {
     const steps = followInstructions(instructions, starts, map);
     sum += steps;
-    console.log(starts, sum);
     if (isFinished(starts)) {
       break;
     }
