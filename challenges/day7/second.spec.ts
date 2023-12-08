@@ -29,11 +29,11 @@ const is5OfAKind = (hand: string) => {
 };
 
 const is4OfAKind = (hand: string) => {
-  for (let j = 0; j < hand.length - 3; j++) {
+  for (let j = 0; j < hand.length; j++) {
     let count = 1;
     for (let i = 0; i < hand.length; i++) {
       if (i === j) continue;
-      if (hand[i] === hand[j] || hand[i] === "J") {
+      if (hand[i] === hand[j] || hand[i] === "J" || hand[j] === "J") {
         count += 1;
       }
     }
@@ -54,11 +54,11 @@ const isFullHouse = (hand: string) => {
 };
 
 const is3OfAKind = (hand: string) => {
-  for (let j = 0; j < hand.length - 2; j++) {
+  for (let j = 0; j < hand.length; j++) {
     let count = 1;
     for (let i = 0; i < hand.length; i++) {
       if (i === j) continue;
-      if (hand[i] === hand[j] || hand[i] === "J") {
+      if (hand[i] === hand[j] || hand[i] === "J" || hand[j] === "J") {
         count += 1;
       }
     }
@@ -90,12 +90,10 @@ const isHighCard = (hand: string) => {
 
 const getValueOfHand = (hand: string): number => {
   if (is5OfAKind(hand)) {
-    console.log("IS 5", hand);
     return 6;
   }
 
   if (is4OfAKind(hand)) {
-    console.log("IS 4", hand);
     return 5;
   }
 
@@ -135,12 +133,10 @@ const handSorter = (hand1: string, hand2: string): number => {
 };
 
 it("is the solution to day 7 challenge 2", async () => {
-  const input = await readFile(join(__dirname, "sample.txt"), "utf-8");
+  const input = await readFile(join(__dirname, "input.txt"), "utf-8");
   const hands = input.split("\n").map((line) => line.trim().split(" "));
 
-  console.log(hands);
   hands.sort((a, b) => handSorter(a[0], b[0]));
-  console.log(hands);
 
   let sum = 0;
   for (let i = 0; i < hands.length; i++) {
